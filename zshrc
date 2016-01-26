@@ -1,5 +1,6 @@
 # 別名
 alias a=alias
+# 
 a ua=unalias
 a be='bundle exec'
 a gb='git branch'
@@ -15,6 +16,7 @@ alias -g RS=' | sed "/^spec/d" | sed "/^vendor/d"'
 ##alias sudo='sudo '
 ##alias -g G='| grep'
 
+# 
 if [ x`/bin/uname`=xLinux ]; then
     a ls='ls --color=auto'
     a egrep='egrep --color=auto'
@@ -25,6 +27,22 @@ fi
 
 # emacs スタイルのキーバインド
 bindkey -e
+
+# cdr 
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 500 # cdrの履歴を保存する個数
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
+
+# zaw
+source ~/.zsh/zaw/zaw.zsh
+zstyle ':filter-select:highlight' selected fg=black,bg=white,standout
+zstyle ':filter-select' case-insensitive yes
+bindkey '^[h' zaw-history
+bindkey '^[c' zaw-cdr
+bindkey '^[g' zaw-git-branches
+bindkey '^[@' zaw-gitdir
 
 # プロンプトの設定
 autoload -U colors; colors
